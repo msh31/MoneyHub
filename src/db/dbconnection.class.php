@@ -2,8 +2,8 @@
 
 class dbconnection extends PDO
 {
-    private $host = "db1";
-    private $dbname = "huishboekje";
+    private $host = "moneyhub-db";
+    private $dbname = "moneyhub";
     private $user = "USER";
     private $pass = "PASS";
     public function __construct()

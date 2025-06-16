@@ -1,4 +1,3 @@
-version: '3'
 services:
   php-environment:
     container_name: moneyhub-apache
