@@ -1,34 +1,24 @@
 version: '3'
 services:
   php-environment:
-    container_name: php-apache1
+    container_name: moneyhub-apache
     build:
-      context: ./htdocs
+      context: ./src
       dockerfile: Dockerfile
     depends_on:
       - db
     volumes:
-      - ./htdocs:/var/www/html/
+      - ./src:/var/www/html/
     ports:
-      - 8000:80
+      - 8001:80
   db:
-    container_name: db1
-    image: mysql:8.0
+    container_name: moneyhub-db
+    image: mariadb:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ROOT_PASSWORD
-      MYSQL_DATABASE: huishboekje
+      MYSQL_DATABASE: moneyhub
       MYSQL_USER: USER
       MYSQL_PASSWORD: PASS
     ports:
       - "9906:3306"
-  phpmyadmin:
-    image: phpmyadmin
-    container_name: phpmyadmin1
-    links:
-      - db
-    environment:
-      PMA_HOST: db
-    restart: always
-    ports:
-      - 8081:80
