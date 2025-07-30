@@ -1,5 +1,12 @@
 <?php
 require "db/dbconnection.class.php";
+require "lang/Language.php";
+
+$selectedLang = $_GET['lang'] ?? $_SESSION['lang'] ?? 'en';
+session_start();
+$_SESSION['lang'] = $selectedLang;
+$lang = new Language($selectedLang);
+
 $dbconnect = new dbconnection();
 
 $sql = "SELECT * FROM items 
@@ -52,10 +59,22 @@ $net_balance = $total_income - $total_expenses;
     <div class="header">
         <div class="container">
             <div class="d-flex align-items-center justify-content-between">
-                <h1>💸 MoneyHub</h1>
-                <div class="text-muted">
-                    <i class="bi bi-calendar3 me-1"></i>
-                    <?= date('M d, Y') ?>
+                <h1><?= t('app_title') ?></h1>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-translate me-1"></i>
+                            <?= $selectedLang == 'nl' ? 'NL' : 'EN' ?>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?lang=en">English</a></li>
+                            <li><a class="dropdown-item" href="?lang=nl">Nederlands</a></li>
+                        </ul>
+                    </div>
+                    <div class="text-muted">
+                        <i class="bi bi-calendar3 me-1"></i>
+                        <?= date('M d, Y') ?>
+                    </div>
                 </div>
             </div>
         </div>
